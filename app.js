@@ -5,6 +5,25 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var sassMiddleware = require('node-sass-middleware');
+var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/swipeup').catch(err => console.error(err));;
+mongoose.connection.on('open', function () {  
+  console.log("Mongoose open event"); 
+});
+mongoose.connection.on('close', function () {  
+  console.log("Mongoose close event"); 
+});
+mongoose.connection.on('connected', function () {  
+  console.log("Mongoose connected event");
+}); 
+mongoose.connection.on('disconnected', function () {  
+  console.log("Mongoose disconnected event"); 
+});
+mongoose.connection.on('error',function (err) {  
+  console.log("Mongoose error event:");
+  console.log(err)
+}); 
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -30,7 +49,7 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/users', users);
+app.use('/user', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

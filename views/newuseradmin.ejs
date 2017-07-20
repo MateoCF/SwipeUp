@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= username %></title>
+</head>
+<body>
+    Share this url for people to add remarks: 
+    <a href="https://swipeup-mrmjcf.c9users.io/user/<%= username %>">
+        https://swipeup-mrmjcf.c9users.io/user/<%= username %>
+    </a>
+    <h1>Current posts</h1>
+    <% if(error) { %>
+        <%= error %>
+    <% } %>
+    <% if(remarks) { %>
+        <% for(var i = 0; i < remarks.length;i++) { %>
+            <% remarks[i] %>
+        <% } %>
+    <% } %>
+</body>
+</html>

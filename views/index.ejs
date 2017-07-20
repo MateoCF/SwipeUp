@@ -7,5 +7,16 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    
+    <div id="thanks">
+      <% if (locals.thanks) { %>
+        <%= thanks %>
+      <% } %>
+    </div>
+    
+    <form method="post" action="/">
+      <input type="text" id="username" name="username"/>
+      <input type="submit" value="Add username!"/>
+    </form>
   </body>
 </html>
