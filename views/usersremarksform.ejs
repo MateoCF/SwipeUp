@@ -1,14 +1,22 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:700" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>SwipeUp</title>
 </head>
 <body>
-    <form method="post" action="/user/s/<%= username %>">
-        <input type="text" name="remark"/>
-        <input type="hidden" name="username" value="<%= username %>">
-        <input type="submit" value="Submit Remark ;)"/>
-    </form>
+    <img src="/images/swipeup.svg" alt="SwipeUp Img.">
+    <div class="container">
+        <h1>Hey! <%= username %> wants you to give them a remark!</h1>
+        <hr>
+        <form method="post" action="/user/s/<%= username %>">
+            <input type="text" name="remark"/>
+            <input type="hidden" name="username" value="<%= username %>">
+            <input type="submit" value="Submit Remark ;)"/>
+        </form>
+    </div>
 </body>
 </html>

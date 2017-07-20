@@ -1,22 +1,33 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title><%= username %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:700" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">    <title><%= username %></title>
 </head>
 <body>
-    Share this url for people to add remarks: 
-    <a href="https://swipeup-mrmjcf.c9users.io/user/<%= username %>">
-        https://swipeup-mrmjcf.c9users.io/user/<%= username %>
-    </a>
-    <h1>Current posts</h1>
-    <% if(error) { %>
-        <%= error %>
-    <% } %>
-    <% if(remarks) { %>
-        <% for(var i = 0; i < remarks.length;i++) { %>
-            <% remarks[i] %>
+    <img src="/images/swipeup.svg" alt="SwipeUp Img.">
+    <div class="container">
+        <% if(locals.error) { %>
+            <%= error %>
+            <hr>
         <% } %>
-    <% } %>
+        <% if (locals.remarks) { %>
+            <h1>Recent Remarks</h1>
+            <% for(var i = 0; i < remarks.length;i++) { %>
+                <div class="remark">
+                    <%= remarks[i].remark %>
+                    <br>
+                    <a class="delete" href="/user/delete/<%= remarks[i]._id %>">Delete Remark</a>
+                </div>
+            <% } %>
+            <hr>
+        <% } %>
+        Share this url for people to add remarks: 
+        <a href="https://swipeup-mrmjcf.c9users.io/user/<%= username %>">
+            https://swipeup-mrmjcf.c9users.io/user/<%= username %>
+        </a>
+    </div>
 </body>
 </html>

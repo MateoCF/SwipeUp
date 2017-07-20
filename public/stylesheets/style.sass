@@ -1,6 +1,142 @@
-body
-  padding: 50px
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video
+  margin: 0
+  padding: 0
+  border: 0
+  font-size: 100%
+  font: inherit
+  vertical-align: baseline
+  font-family: 'PT Sans', sans-serif
+  color: #fff
+  border-radius: 10px
+/* HTML5 display-role reset for older browsers
 
-a
-  color: #00B7FF
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section
+  display: block
+
+body
+  line-height: 1
+  background-color: #5C40C9
+  background-image: url("/images/pattern.svg")
+  animation: animatedBackground 10s linear infinite
+
+@keyframes animatedBackground 
+	from 
+	  background-position: 0 0
+	to 
+	  background-position: 100% 0
+
+
+ol, ul
+  list-style: none
+
+blockquote, q
+  quotes: none
+
+blockquote
+  &:before, &:after
+    content: ''
+    content: none
+
+q
+  &:before, &:after
+    content: ''
+    content: none
+
+table
+  border-collapse: collapse
+  border-spacing: 0
+  
+main 
+  min-height: 200px
+  width: 290px
+  position: fixed
+  box-shadow: 0px 2px 12px 0px rgba(0,0,0,0.75)
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50% )
+  text-align: center
+  font-size: 30px
+  padding: 20px
+  background: #5C7AFF
+
+#thanks 
+  font-size: 15px
+  border: 3px solid #FF5A66
+  margin: 10px
+  padding: 10px
+
+input 
+  height: 24px
+  font-size: 20px
+
+input[type="submit"]
+  background: #5C40C9
+  color: #fff
+  height: 34px
+  font-size: 18px
+  box-shadow: 0px 2px 12px 0px rgba(0,0,0,0.75)
+  border: 0
+
+input[value="Add username!"]
+  margin: 10px auto
+  cursor: pointer
+
+a[href="/about"]
+  font-size: 18px
+
+hr
+  display: block
+  height: 1px
+  background: #fff
+  border: 0
+  
+#mapp 
+  position: absolute
+  font-size: 18px
+  bottom: 8px
+  right: 15px
+  
+.container 
+  box-shadow: 0px 2px 12px 0px rgba(0,0,0,0.75)
+  width: 70%
+  margin: 100px auto
+  min-height: 70%
+  background: #5C7AFF
+  padding: 50px
+  font-size: 30px
+  line-height: 35px
+  word-wrap: break-word
+
+ol 
+  margin-left: 20px
+  font-size: 20px
+
+.remark 
+  padding: 14px 14px 4px 14px
+  margin: 8px auto
+  background: #FF5A66
+  box-shadow: 0px 2px 12px 0px rgba(0,0,0,0.5)
+  font-size: 20px
+  word-wrap: break-word
+  
+img 
+  position: fixed
+  z-index: -1
+  width: 100%
+  
+.delete 
+  font-size: 14px
+  position: relative
+  top: -10px
+
+@media screen and (max-device-width: 420px) 
+  .container 
+    width: calc( 90% - 40px )
+    padding: 20px
+    margin: 60px auto 0 auto
+    min-height: calc(100% - 200px)
+    
+  img 
+    width: 150%
+    left: 25%
+    transform: translate(-25%, 0)

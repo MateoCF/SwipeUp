@@ -3,20 +3,29 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:700" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    
-    <div id="thanks">
-      <% if (locals.thanks) { %>
-        <%= thanks %>
-      <% } %>
-    </div>
-    
-    <form method="post" action="/">
-      <input type="text" id="username" name="username"/>
-      <input type="submit" value="Add username!"/>
-    </form>
+    <img src="/images/swipeup.svg" alt="SwipeUp Img.">
+    <main>
+      <p>Welcome to <%= title %></p>
+      <hr>
+        <% if (locals.thanks) { %>
+          <div id="thanks">
+            <%= thanks %>
+          </div>
+        <% } %>
+      
+      <form method="post" action="/">
+        <input type="text" id="username" name="username"/>
+        <input type="submit" value="Add username!"/>
+      </form>
+      <a href="/about">About/Instructions</a>
+      <div id="mapp">
+        By Mate👌 
+      </div>
+    </main>
   </body>
 </html>

@@ -4,20 +4,17 @@ var Remark = require("../models/remark");
 
 // Render form for new remark
 router.get('/:username', function(req, res, next) {
-  console.log('User remark post Sanitization Station');
   //Sanitize input
   res.render('usersremarksform.ejs', { username: req.params.username });
 });
 
 // Save form for new remark and redirect to the user's remarks
 router.post('/s/:username', function(req, res, next) {
-  console.log('User remark post Sanitization Station');
   //Sanitize input for remark
   
   //Save Remark
   var remark = req.body;
   if(!remark.remark || !remark.username && remark.username == req.params.username) {
-      console.log('field not present');
       res.redirect('/' + req.params.username);
   } else {
       var newRemark = new Remark({
@@ -26,38 +23,43 @@ router.post('/s/:username', function(req, res, next) {
       });
       newRemark.save(function(err, Remark){
           if(err) {
-              res.render('index', { title: 'Error', thanks: 'Database Error, try again later'})
+              res.render('index', { title: 'SwipeUp', thanks: 'Database Error, try again later'})
           } else {
           //Then redirect and thanks to index page
-            res.render("index", { title: "Thanks!", thanks: "Thanks for that comment!"});
+            res.render("index", { title: "Thanks!", thanks: "Thanks for that remark!"});
           }
       });
   }
 });
 
+//Delete Remark 
 
-
+router.get('/delete/:id', function(req, res, next) {
+    if (Remark.findById(req.params.id) == true) {
+      Remark.findByIdAndRemove(req.params.id, function(err, oldremark){
+        if(err) {
+          res.render('index', { title: "SwipeUp", error: "Database Error/Couldn't be deleted"})
+        } else {
+          res.render('index', { title: "Delete", thanks: oldremark.remark + " has been deleted"})
+        }
+      });
+    } else {
+        res.render('index', { title: "SwipeUp", error: "Database Error/Couldn't be deleted"})
+    }
+});
 
 //On 'new user' for username sanitize input for username ....
 router.get('/admin/:username', function(req, res, next) {
-  console.log('User remark post Sanitization Station');
   
     //Add sanitization from url and MondoDB query filters
     var username = req.params.username
-    Remark.find({ username: username}, function(err, response) {
-        if(err) {
-            res.render("newuseradmin", { error: 'No remarks found...yet ;)', remarks: '', username: username });
+    Remark.find({ username: username }, function(err, response) {
+        if(err || response.length == 0) {
+            res.render("newuseradmin", { error: 'No remarks found...yet ;)', username: username });
         } else {
-            res.render("newuseradmin", { error: '', remarks: response.remark, username: username });
+            res.render("newuseradmin", {remarks: response, username: username });
         }
     });
 });
-
-//Show all remarks in admin location
-
-router.get('/admin/:username', function(req, res, next) {
-
-});
-
 
 module.exports = router;
