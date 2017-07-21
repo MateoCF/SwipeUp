@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var sassMiddleware = require('node-sass-middleware');
 var xssFilters = require('xss-filters');
 var mongoose = require('mongoose');
+var helmet = require('helmet');
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/swipeup').catch(err => console.error(err));;
 mongoose.connection.on('open', function () {  
@@ -34,6 +35,9 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+app.use(helmet());
+app.disable('x-powered-by')
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
