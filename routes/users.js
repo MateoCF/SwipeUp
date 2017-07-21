@@ -1,32 +1,41 @@
 var express = require('express');
 var router = express.Router();
 var Remark = require("../models/remark");
+var xssFilters = require('xss-filters');
+
+
+  // var firstname = req.query.firstname; //an untrusted input collected from user
+  // res.send('<h1> Hello, ' + xssFilters.inHTMLData(firstname) + '!</h1>');
+
 
 // Render form for new remark
 router.get('/:username', function(req, res, next) {
   //Sanitize input
-  res.render('usersremarksform.ejs', { username: req.params.username });
+  var username = xssFilters.inHTMLData(req.params.username).substring(0, 50);
+  res.render('usersremarksform.ejs', { username: username });
 });
 
 // Save form for new remark and redirect to the user's remarks
 router.post('/s/:username', function(req, res, next) {
   //Sanitize input for remark
-  
+  var bodyRemark = xssFilters.inHTMLData(req.body.remark).substring(0, 300);
+  var bodyUsername = xssFilters.inHTMLData(req.body.username).substring(0, 50);
+  var paramUsername = xssFilters.inHTMLData(req.params.username).substring(0, 50);
   //Save Remark
-  var remark = req.body;
-  if(!remark.remark || !remark.username && remark.username == req.params.username) {
-      res.redirect('/' + req.params.username);
+  if(bodyRemark.length == 0 || bodyUsername.length == 0 && bodyUsername == paramUsername) {
+      res.redirect('/' + paramUsername);
   } else {
       var newRemark = new Remark({
-          remark: remark.remark,
-          username: remark.username,
+          remark: bodyRemark,
+          username: bodyUsername
       });
       newRemark.save(function(err, Remark){
           if(err) {
-              res.render('index', { title: 'SwipeUp', thanks: 'Database Error, try again later'})
+              console.log(err);
+              res.render('index', { thanks: 'Database Error, try again later'})
           } else {
           //Then redirect and thanks to index page
-            res.render("index", { title: "Thanks!", thanks: "Thanks for that remark!"});
+            res.render("index", { thanks: "Thanks for that remark!"});
           }
       });
   }
@@ -35,16 +44,15 @@ router.post('/s/:username', function(req, res, next) {
 //Delete Remark 
 
 router.get('/delete/:id', function(req, res, next) {
-    if (Remark.findById(req.params.id) == true) {
-      Remark.findByIdAndRemove(req.params.id, function(err, oldremark){
-        if(err) {
-          res.render('index', { title: "SwipeUp", error: "Database Error/Couldn't be deleted"})
-        } else {
-          res.render('index', { title: "Delete", thanks: oldremark.remark + " has been deleted"})
-        }
+    if(Remark.findById(req.params.id)) {
+      Remark.findByIdAndRemove({ _id: xssFilters.inHTMLData(req.params.id) }, function(err, oldremark){
+          if(err) {
+            console.log(err);
+            res.render('index', { thanks: "Database Error/Couldn't be deleted"})
+          } else {
+            res.redirect('back');
+          }
       });
-    } else {
-        res.render('index', { title: "SwipeUp", error: "Database Error/Couldn't be deleted"})
     }
 });
 
@@ -52,14 +60,19 @@ router.get('/delete/:id', function(req, res, next) {
 router.get('/admin/:username', function(req, res, next) {
   
     //Add sanitization from url and MondoDB query filters
-    var username = req.params.username
+    var username = xssFilters.inHTMLData(req.params.username);
+    if(!req.params.username.length == 0) {
     Remark.find({ username: username }, function(err, response) {
-        if(err || response.length == 0) {
+        if(err) {
             res.render("newuseradmin", { error: 'No remarks found...yet ;)', username: username });
         } else {
             res.render("newuseradmin", {remarks: response, username: username });
         }
     });
+    } else {
+      res.render('index', { error: 'No input'})
+    }
 });
+
 
 module.exports = router;

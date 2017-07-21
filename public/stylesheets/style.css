@@ -45,7 +45,7 @@ table {
 
 main {
   min-height: 200px;
-  width: 290px;
+  width: 280px;
   position: fixed;
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.75);
   top: 50%;
@@ -53,8 +53,9 @@ main {
   transform: translate(-50%, -50%);
   text-align: center;
   font-size: 30px;
-  padding: 20px;
-  background: #5C7AFF; }
+  padding: 20px 8px;
+  background: #5C7AFF;
+  border-radius: 10px; }
 
 #thanks {
   font-size: 15px;
@@ -74,7 +75,7 @@ input[type="submit"] {
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.75);
   border: 0; }
 
-input[value="Add username!"] {
+input[type="submit"] {
   margin: 10px auto;
   cursor: pointer; }
 
